@@ -74,8 +74,8 @@ docker run -p 3157:3157 hoymiles_hms_wifi_mqtt
 ```Dockerfile
 version: "3.3"
 services:
-  hms_wifi_mqtt:
-    image: "hms_wifi_mqtt"
+  hoymiles_hms_wifi_mqtt:
+    image: "hoymiles_hms_wifi_mqtt"
     restart: always
     ports:
       - "3157:3157"
