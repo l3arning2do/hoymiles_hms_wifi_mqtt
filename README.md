@@ -6,7 +6,7 @@ Il utilise la librairie python (https://github.com/suaveolent/hoymiles-wifi) pou
 
 Prérequi : vous devez avoir vos micros onduleurs connectés sur votre reseau local en Wifi et connaitre les IP exacte de chacun. l'idéal serait de leur donner une ip fixe dans votre serveur DHCP
 
-**Information : Ce projet n'est pas affilié à Hoymiles et reste un projet amateur pour partager des outils qui a l'heure actuel n'existe pas sur le marché.
+**Information : Ce projet n'est pas affilié à Hoymiles et reste un projet amateur pour partager des outils qui a l'heure actuel n'existe pas sur le marché.**
 
 ##
 A small Node server that displays live datas from the HMS-XXXXW-2T Wifi Hoymiles series microinverters and allows MQTT injection for use with monitoring tools.
@@ -16,7 +16,7 @@ It uses the python library (https://github.com/suaveolent/hoymiles-wifi) to retr
 
 Prerequisite: you must have your microinverters connected to your local Wifi network and know the exact IP of each one. Ideally, you should give them a fixed IP in your DHCP server.
 
-**Information: This project is not affiliated with Hoymiles and remains an amateur project to share tools that currently don't exist on the market.
+**Information: This project is not affiliated with Hoymiles and remains an amateur project to share tools that currently don't exist on the market.**
 
 
 ## Supported Devices
