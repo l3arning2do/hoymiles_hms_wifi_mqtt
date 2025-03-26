@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Monitoring Solaire</title>
+  <style>
+    :root {
+      --color-dtu1: #00bcd4;
+      --color-dtu2: #ff9800;
+      --color-dtu3: #9c27b0;
+      --bg-dark: #121212;
+      --bg-panel: #1e1e1e;
+      --text-light: #f0f0f0;
+      --text-muted: #aaa;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    details {
+      background-color: var(--bg-panel);
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      padding: 1rem 1.5rem;
+      border-left: 8px solid var(--color-dtu1);
+      transition: transform 0.2s ease, box-shadow 0.3s;
+    }
+
+    details[data-color="DTU1"] { border-left-color: var(--color-dtu1); }
+    details[data-color="DTU2"] { border-left-color: var(--color-dtu2); }
+    details[data-color="DTU3"] { border-left-color: var(--color-dtu3); }
+
+    details:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 12px rgba(0,255,255,0.15);
+    }
+
+    summary {
+      font-weight: bold;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text-light);
+    }
+
+    .dtu-main {
+      margin-top: 1rem;
+      color: var(--text-muted);
+    }
+
+    .label {
+      font-weight: bold;
+      color: var(--text-light);
+    }
+
+    .pv-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .pv-card {
+      background: #2a2a2a;
+      border-radius: 8px;
+      padding: 1rem;
+      flex: 1 1 250px;
+      color: #e0e0e0;
+      border-left: 5px solid var(--color-dtu1);
+    }
+
+    .pv-card[data-color="DTU2"] { border-left-color: var(--color-dtu2); }
+    .pv-card[data-color="DTU3"] { border-left-color: var(--color-dtu3); }
+
+    .pv-card p {
+      margin: 0.3rem 0;
+    }
+
+    .sgs-box {
+      background: #1a1a1a;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+
+    summary::marker {
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌞 Monitoring Solaire HMS WiFi</h1>
+  <div style="text-align: center; margin-bottom: 2rem;">
+    <label for="refreshSelect">🔄 Rafraîchissement automatique :</label>
+    <select id="refreshSelect">
+    <option value="0">Désactivé</option>
+    <option value="1">1 minute</option>
+    <option value="5">5 minutes</option>
+    <option value="10">10 minutes</option>
+    <option value="30">30 minutes</option>
+    </select>
+  </div>
+  <div style="text-align:center; margin-bottom:1.5rem;">
+    <span style="padding: 0.4rem 1rem; border-radius: 20px; font-weight: bold;
+      <% if (mqttEnabled) { %>
+        background-color: #2e7d32; color: white;
+      <% } else { %>
+        background-color: #b71c1c; color: white;
+      <% } %>">
+      <% if (mqttEnabled) { %>
+        ✅ MQTT Activé
+      <% } else { %>
+        ❌ MQTT Désactivé
+      <% } %>
+    </span>
+  </div>
+  
+  <% dtuList.forEach((dtuItem, index) => {
+      const dtuName = Object.keys(dtuItem)[0];
+      const dtu = dtuItem[dtuName];
+  %>
+    <details open data-color="<%= dtuName %>">
+      <summary><%= dtuName %> — ⚡ <%= (dtu.dtuPower /10).toFixed(1) %> W | ☀️ <%= (dtu.dtuDailyEnergy /10).toFixed(1) %> Wh</summary>
+      <div class="dtu-main">
+        <p><span class="label">Numéro de série :</span> <%= dtu.deviceSerialNumber %></p>
+        <p><span class="label">Firmware :</span> v<%= dtu.firmwareVersion %></p>
+        <% const date = new Date(dtu.timestamp * 1000); %>
+        <p><span class="label">Date :</span> <%= date.toLocaleString("fr-FR") %></p>
+
+        <details>
+          <summary>🔧 Détails techniques (SGS)</summary>
+          <% dtu.sgsData.forEach(sgs => { %>
+            <div class="sgs-box">
+              <p><span class="label">Tension :</span> <%= (sgs.voltage /10).toFixed(1) %> V</p>
+              <p><span class="label">Fréquence :</span> <%= (sgs.frequency /100).toFixed(2) %> Hz</p>
+              <p><span class="label">Puissance active :</span> <%= sgs.activePower %> W</p>
+              <p><span class="label">Température :</span> <%= (sgs.temperature /10).toFixed(1) %> °C</p>
+              <p><span class="label">Facteur de puissance :</span> <%= sgs.powerFactor %></p>
+            </div>
+          <% }); %>
+        </details>
+
+        <div class="pv-container">
+          <% dtu.pvData.forEach(pv => { %>
+            <div class="pv-card" data-color="<%= dtuName %>">
+              <p><span class="label">Port :</span> <%= pv.portNumber %></p>
+              <p><span class="label">Tension :</span> <%= (pv.voltage / 10).toFixed(1) %> V</p>
+              <p><span class="label">Courant :</span> <%= (pv.current / 10).toFixed(1) %> A</p>
+              <p><span class="label">Puissance :</span> <%= (pv.power /10).toFixed(1) %> W</p>
+              <p><span class="label">Énergie Totale :</span> <%= (pv.energyTotal /10).toFixed(1) %> Wh</p>
+              <p><span class="label">Énergie Journalière :</span> <%= (pv.energyDaily /10).toFixed(1) %> Wh</p>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+    </details>
+  <% }); %>
+<script>
+  const select = document.getElementById('refreshSelect');
+
+  function setAutoRefresh(minutes) {
+    clearInterval(window.refreshInterval);
+    if (minutes > 0) {
+      window.refreshInterval = setInterval(() => {
+        window.location.reload();
+      }, minutes * 60 * 1000);
+    }
+  }
+
+  // Mémoriser le choix dans localStorage
+  select.addEventListener('change', () => {
+    const value = parseInt(select.value);
+    localStorage.setItem('refreshRate', value);
+    setAutoRefresh(value);
+  });
+
+  // Initialisation à partir du localStorage
+  const saved = localStorage.getItem('refreshRate') || "0";
+  select.value = saved;
+  setAutoRefresh(parseInt(saved));
+</script>
+</body>
+</html>

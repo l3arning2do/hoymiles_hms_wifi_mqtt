@@ -1,0 +1,146 @@
+[
+  {
+    "DTU1": {
+      "deviceSerialNumber": "XXXXXXX1",
+      "timestamp": 1742915314,
+      "ap": 1,
+      "firmwareVersion": 1,
+      "sgsData": [
+        {
+          "serialNumber": "XXXXXXXXX404",
+          "firmwareVersion": 1,
+          "voltage": 2416,
+          "frequency": 5004,
+          "activePower": 1858,
+          "reactivePower": 545,
+          "current": 80,
+          "powerFactor": 959,
+          "temperature": 250,
+          "warningNumber": 5,
+          "linkStatus": 1,
+          "modulationIndexSignal": 15532287
+        }
+      ],
+      "pvData": [
+        {
+          "serialNumber": "XXXXXXXXX404",
+          "portNumber": 1,
+          "voltage": 333,
+          "current": 295,
+          "power": 984,
+          "energyTotal": 3849,
+          "energyDaily": 2041,
+          "errorCode": 50921472
+        },
+        {
+          "serialNumber": "XXXXXXXXX404",
+          "portNumber": 2,
+          "voltage": 334,
+          "current": 294,
+          "power": 981,
+          "energyTotal": 3855,
+          "energyDaily": 2037,
+          "errorCode": 50331648
+        }
+      ],
+      "dtuPower": "1858",
+      "dtuDailyEnergy": "4078"
+    }
+  },
+  {
+    "DTU2": {
+      "deviceSerialNumber": "XXXXXXX2",
+      "timestamp": 1742915319,
+      "ap": 1,
+      "firmwareVersion": 1,
+      "sgsData": [
+        {
+          "serialNumber": "XXXXXXXXX404",
+          "firmwareVersion": 1,
+          "voltage": 2408,
+          "frequency": 5004,
+          "activePower": 1854,
+          "reactivePower": 544,
+          "current": 80,
+          "powerFactor": 959,
+          "temperature": 256,
+          "warningNumber": 6,
+          "linkStatus": 1,
+          "modulationIndexSignal": 2293794
+        }
+      ],
+      "pvData": [
+        {
+          "serialNumber": "XXXXXXXXX404",
+          "portNumber": 1,
+          "voltage": 333,
+          "current": 295,
+          "power": 983,
+          "energyTotal": 3803,
+          "energyDaily": 2031,
+          "errorCode": 50921472
+        },
+        {
+          "serialNumber": "XXXXXXXXX404",
+          "portNumber": 2,
+          "voltage": 331,
+          "current": 295,
+          "power": 979,
+          "energyTotal": 3790,
+          "energyDaily": 2024,
+          "errorCode": 50331648
+        }
+      ],
+      "dtuPower": "1854",
+      "dtuDailyEnergy": "4055"
+    }
+  },
+  {
+    "DTU3": {
+      "deviceSerialNumber": "XXXXXXX3",
+      "timestamp": 1742915313,
+      "ap": 1,
+      "firmwareVersion": 1,
+      "sgsData": [
+        {
+          "serialNumber": "XXXXXXXXX404",
+          "firmwareVersion": 1,
+          "voltage": 2411,
+          "frequency": 5005,
+          "activePower": 1845,
+          "reactivePower": 541,
+          "current": 79,
+          "powerFactor": 959,
+          "temperature": 262,
+          "warningNumber": 4,
+          "linkStatus": 1,
+          "modulationIndexSignal": 11010148
+        }
+      ],
+      "pvData": [
+        {
+          "serialNumber": "XXXXXXXXX404",
+          "portNumber": 1,
+          "voltage": 332,
+          "current": 293,
+          "power": 976,
+          "energyTotal": 3803,
+          "energyDaily": 2021,
+          "errorCode": 50921472
+        },
+        {
+          "serialNumber": "XXXXXXXXX404",
+          "portNumber": 2,
+          "voltage": 333,
+          "current": 293,
+          "power": 976,
+          "energyTotal": 3817,
+          "energyDaily": 2032,
+          "errorCode": 50331648
+        }
+      ],
+      "dtuPower": "1845",
+      "dtuDailyEnergy": "4053"
+    }
+  }
+]
