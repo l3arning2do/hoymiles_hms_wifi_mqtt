@@ -155,7 +155,7 @@
             <div class="pv-card" data-color="<%= dtuName %>">
               <p><span class="label">Port :</span> <%= pv.portNumber %></p>
               <p><span class="label">Tension :</span> <%= (pv.voltage / 10).toFixed(1) %> V</p>
-              <p><span class="label">Courant :</span> <%= (pv.current / 10).toFixed(1) %> A</p>
+              <p><span class="label">Courant :</span> <%= (pv.current / 100).toFixed(2) %> A</p>
               <p><span class="label">Puissance :</span> <%= (pv.power /10).toFixed(1) %> W</p>
               <p><span class="label">Énergie Totale :</span> <%= (pv.energyTotal /10).toFixed(1) %> Wh</p>
               <p><span class="label">Énergie Journalière :</span> <%= (pv.energyDaily /10).toFixed(1) %> Wh</p>
