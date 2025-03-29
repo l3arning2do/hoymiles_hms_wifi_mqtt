@@ -96,6 +96,25 @@
     summary::marker {
       color: #ccc;
     }
+
+    details[data-status="error"] {
+      border-left: 8px solid #e53935; /* rouge */
+      background-color: #2a1f1f;
+      color: #ffcdd2;
+    }
+
+    details[data-status="error"] summary {
+      color: #ef9a9a;
+    }
+
+    .dtu-error-msg {
+      padding: 1rem;
+      background-color: #3a1f1f;
+      border-radius: 8px;
+      color: #ffcdd2;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -128,7 +147,15 @@
   <% dtuList.forEach((dtuItem, index) => {
       const dtuName = Object.keys(dtuItem)[0];
       const dtu = dtuItem[dtuName];
+      const isError = !!dtu.error;
   %>
+  <% if (isError) { %>
+    <summary>
+      <%= dtuName %>
+
+        – ❌ <%= dtu.error %>
+    </summary>
+  <% } else { %>
     <details open data-color="<%= dtuName %>">
       <summary><%= dtuName %> — ⚡ <%= (dtu.dtuPower /10).toFixed(1) %> W | ☀️ <%= (dtu.dtuDailyEnergy /10).toFixed(1) %> Wh</summary>
       <div class="dtu-main">
@@ -137,7 +164,8 @@
         <% const date = new Date(dtu.timestamp * 1000); %>
         <p><span class="label">Date :</span> <%= date.toLocaleString("fr-FR") %></p>
 
-        <details>
+        <details data-color="<%= dtuName %>" data-status="<%= isError ? 'error' : '' %>">
+
           <summary>🔧 Détails techniques (SGS)</summary>
           <% dtu.sgsData.forEach(sgs => { %>
             <div class="sgs-box">
@@ -164,6 +192,7 @@
         </div>
       </div>
     </details>
+    <% } %>
   <% }); %>
 <script>
   const select = document.getElementById('refreshSelect');
