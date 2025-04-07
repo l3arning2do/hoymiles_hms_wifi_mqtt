@@ -17,14 +17,15 @@ RUN /venv/bin/pip install --upgrade pip \
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
+COPY app /app
 
 FROM node:23-alpine
 
 RUN apk add --no-cache python3 py3-pip
 
-
 COPY --from=build /venv /venv
-COPY app /app
+COPY --from=build /app /app
+
 ENV PATH="/venv/bin:$PATH"
 
 WORKDIR /app
